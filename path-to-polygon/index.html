@@ -168,12 +168,32 @@ script: |
           })(f);
           reader.readAsText(f);
       }, false);
+
+      const input = document.getElementById("svg-input");
+      input.addEventListener('paste', function (evt) {
+        setTimeout(() => {
+            var svg = evt.target.value;
+
+            if (svg.length < 1)
+                return;
+
+                if (!svg.startsWith('<svg'))
+                return;
+        //   if (svg.type != 'image/svg+xml')
+        //       return;
+          
+            document.getElementById('svg-original').innerHTML = svg;
+            crunch()
+        }, 100);
+      });
+
       crunch();
   }
   </script>
 ---
 
 <header class="jumbotron subhead">
+  <input type="text" id="svg-input" placeholder="paste yout SVG Code here" />
   <div class="row">
     <div class="span8">
       <h1>Path to Polygon Converter</h1>
